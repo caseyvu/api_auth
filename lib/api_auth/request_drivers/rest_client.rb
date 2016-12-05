@@ -35,12 +35,12 @@ module ApiAuth
       def populate_content_md5
         puts "In populate_content_md5"
         puts @request.method
-        if [:post, :put].include?(@request.method)
+        if [:post, :put, 'post', 'put'].include?(@request.method)
           puts "method is post or put"
         else
           puts "method is neither post or put"
         end
-        return unless [:post, :put].include?(@request.method)
+        return unless [:post, :put, 'post', 'put'].include?(@request.method)
         puts "Will populate content md5"
         @request.headers['Content-MD5'] = calculated_md5
         save_headers

@@ -39,10 +39,13 @@ module ApiAuth
       headers = Headers.new(request)
       puts "Gonna check md5"
       if headers.md5_mismatch?
+        puts "MD5 MISMATCH"
         false
       elsif !signatures_match?(headers, secret_key, options)
+        puts "SIGNATURE MISMATCH"
         false
       elsif !request_within_time_window?(headers)
+        puts "REQUEST TIMEOUT"
         false
       else
         true
@@ -82,6 +85,7 @@ module ApiAuth
     end
 
     def signatures_match?(headers, secret_key, options)
+      puts "in signatures_match?"
       match_data = parse_auth_header(headers.authorization_header)
       return false unless match_data
 
@@ -92,7 +96,10 @@ module ApiAuth
 
       header_sig = match_data[3]
       calculated_sig = hmac_signature(headers, secret_key, options)
-
+      puts "request signature:"
+      puts header_sig
+      puts "calculate signature:"
+      puts calculated_sig
       secure_equals?(header_sig, calculated_sig, secret_key)
     end
 
