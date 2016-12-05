@@ -71,6 +71,8 @@ module ApiAuth
     end
 
     def calculate_md5
+      puts "In calculate_md5"
+      puts @request.content_md5
       @request.populate_content_md5 if @request.content_md5.empty?
     end
 

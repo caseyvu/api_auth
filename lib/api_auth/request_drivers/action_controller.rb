@@ -27,9 +27,12 @@ module ApiAuth
       end
 
       def md5_mismatch?
+        puts "In actionController request md5_mismatch"
         if @request.put? || @request.post?
+          puts "Is post or put request"
           calculated_md5 != content_md5
         else
+          puts "Is not put/post request"
           false
         end
       end

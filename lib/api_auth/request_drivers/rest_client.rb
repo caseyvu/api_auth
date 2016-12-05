@@ -19,17 +19,29 @@ module ApiAuth
       end
 
       def calculated_md5
+        puts "In calculated_md5"
+        puts @request.payload
         if @request.payload
           body = @request.payload.read
           @request.payload.instance_variable_get(:@stream).seek(0)
         else
           body = ''
         end
+        puts "Body:"
+        puts body
         md5_base64digest(body)
       end
 
       def populate_content_md5
+        puts "In populate_content_md5"
+        puts @request.method
+        if [:post, :put].include?(@request.method)
+          puts "method is post or put"
+        else
+          puts "method is neither post or put"
+        end
         return unless [:post, :put].include?(@request.method)
+        puts "Will populate content md5"
         @request.headers['Content-MD5'] = calculated_md5
         save_headers
       end
@@ -56,7 +68,9 @@ module ApiAuth
       end
 
       def content_md5
+        puts "In content_md5"
         value = find_header(%w(CONTENT-MD5 CONTENT_MD5))
+        puts value
         value.nil? ? '' : value
       end
 

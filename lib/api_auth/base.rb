@@ -23,6 +23,7 @@ module ApiAuth
     def sign!(request, access_id, secret_key, options = {})
       options = { :override_http_method => nil, :digest => 'sha1' }.merge(options)
       headers = Headers.new(request)
+      puts "Gonna calculate_md5"
       headers.calculate_md5
       headers.set_date
       headers.sign_header auth_header(headers, access_id, secret_key, options)
