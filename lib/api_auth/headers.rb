@@ -77,9 +77,12 @@ module ApiAuth
     end
 
     def md5_mismatch?
+      puts "In header md5_mismatch"
       if @request.content_md5.empty?
+        puts "Request content_md5 is empty"
         false
       else
+        puts "Request content_md5 is not empty"
         @request.md5_mismatch?
       end
     end

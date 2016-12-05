@@ -37,7 +37,7 @@ module ApiAuth
       options = { :override_http_method => nil }.merge(options)
 
       headers = Headers.new(request)
-
+      puts "Gonna check md5"
       if headers.md5_mismatch?
         false
       elsif !signatures_match?(headers, secret_key, options)

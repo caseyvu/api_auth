@@ -51,7 +51,9 @@ module ApiAuth
       end
 
       def content_md5
+        puts "Request content_md5 is:"
         value = find_header(%w(CONTENT-MD5 CONTENT_MD5 HTTP_CONTENT_MD5))
+        puts value
         value.nil? ? '' : value
       end
 
